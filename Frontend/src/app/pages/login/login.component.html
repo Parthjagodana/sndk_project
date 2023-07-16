@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card my-5">
+        <form
+          class="card-body cardbody-color p-lg-5"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="text-center">
+            <img
+              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+              class="img-fluid profile-image-pic img-thumbnail rounded-circle my-1"
+              width="100px"
+              alt="profile"
+            />
+          </div>
+
+          <h2 class="text-center text-dark mt-2">SNDK Login</h2>
+
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input
+              type="text"
+              formControlName="email"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+            />
+            <div
+              *ngIf="submitted && f['email'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['email'].errors['required']">Email is required</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+            />
+            <div
+              *ngIf="submitted && f['password'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['password'].errors['required']">
+                Password is required
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button [disabled]="loading" class="btn btn-color px-5 mb-5 w-100">
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm me-1"
+              ></span>
+              Login
+            </button>
+          </div>
+
+          <div id="emailHelp" class="form-text text-center mb-5 text-dark">
+            Not Registered?
+            <a [routerLink]="['/signUp']" class="text-dark fw-bold">
+              Create an Account</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

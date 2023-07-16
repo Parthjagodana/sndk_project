@@ -1,0 +1,81 @@
+<div class="container mt-5">
+  <div class="form-group pull-right mb-2 d-flex justify-content-end">
+    <div class="col-md-2">
+      <select
+        class="form-select"
+        id="filter"
+        (change)="fetchUsers()"
+        [(ngModel)]="statusFilter"
+        style="height: 100%; width: 100%; padding: 6px"
+      >
+        <option value="2">All</option>
+        <option value="1">Active</option>
+        <option value="0">Inactive</option>
+      </select>
+    </div>
+    <input
+      type="text"
+      class="search form-control w-25 ms-2"
+      (input)="fetchUsers()"
+      [(ngModel)]="search"
+      placeholder="What you looking for?"
+    />
+  </div>
+  <span class="counter pull-right"></span>
+  <table class="table table-hover table-bordered results">
+    <thead>
+      <tr>
+        <th class="col-md-2 col-xs-5">Profile</th>
+        <th class="col-md-2 col-xs-2">First Name</th>
+        <th class="col-md-2 col-xs-4">Last Name</th>
+        <th class="col-md-3 col-xs-3">Email</th>
+        <th class="col-md-2 col-xs-3">Status</th>
+        <th class="col-md-5 col-xs-3">Action</th>
+      </tr>
+      <tr *ngIf="userList.length == 0" class="warning no-result">
+        <td colspan="6" class="text-center">
+          <i class="fa fa-warning"></i> No result
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userList; let i = index">
+        <td>
+          <img
+            [src]="
+              user.profileImage ||
+              'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+            "
+            alt="User Image"
+            class="rounded-circle"
+            width="50"
+            height="50"
+          />
+        </td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <span *ngIf="user.status" class="badge bg-success">Active</span>
+          <span *ngIf="!user.status" class="badge bg-danger">Inactive</span>
+        </td>
+
+        <td class="d-flex p-3">
+          <button
+            class="btn btn-primary btn-sm"
+            (click)="editUserDetails(user)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-primary btn-sm ml-2 m-1"
+            style="width: 150px"
+            [routerLink]="['/change-password', user._id]"
+          >
+            Change Password
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

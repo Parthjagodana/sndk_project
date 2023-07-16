@@ -1,0 +1,148 @@
+<div class="main">
+  <div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="account-settings">
+                <div class="user-profile">
+                  <div class="user-avatar">
+                    <input
+                      type="file"
+                      id="fileInput"
+                      accept="image/*"
+                      (change)="handleFileInput($event)"
+                      hidden
+                    />
+                    <img
+                      id="profile-img"
+                      [src]="profileImage"
+                      class="profile-img"
+                      (click)="selectImage()"
+                    />
+                  </div>
+                  <h5 class="user-name">
+                    {{ userDetails.firstName }}{{ userDetails.firstName }}
+                  </h5>
+                  <h6 class="user-email">{{ userDetails.email }}</h6>
+                </div>
+                <div class="about"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-2 text-primary">User Details</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="mb-1">
+                    <label class="form-label">First Name</label>
+                    <input
+                      type="text"
+                      formControlName="firstName"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': submitted && f['firstName'].errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && f['firstName'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f['firstName'].errors['required']">
+                        First Name is required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label class="form-label">Last Name</label>
+                    <input
+                      type="text"
+                      formControlName="lastName"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': submitted && f['lastName'].errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && f['lastName'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f['lastName'].errors['required']">
+                        Last Name is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <label class="form-label">Email</label>
+                  <input
+                    type="text"
+                    formControlName="email"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                  />
+                  <div
+                    *ngIf="submitted && f['email'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f['email'].errors['required']">
+                      Email is required
+                    </div>
+                    <div *ngIf="f['email'].errors['email']">
+                      Email must be a valid email address
+                    </div>
+                  </div>
+
+                  <label class="form-label">Status</label>
+                  <select
+                    formControlName="status"
+                    class="form-select"
+                    [ngClass]="{
+                      'is-invalid': submitted && f['status'].errors
+                    }"
+                  >
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                  </select>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"></div>
+              </div>
+
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <div class="text-right">
+                    <button
+                      type="button"
+                      id="submit"
+                      name="submit"
+                      class="btn btn-secondary m-1"
+                      routerLink="/users"
+                    >
+                      Cancel
+                    </button>
+                    <button [disabled]="submitting" class="btn btn-primary m-1">
+                      <span
+                        *ngIf="submitting"
+                        class="spinner-border spinner-border-sm me-1"
+                      ></span>
+                      Update
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
